@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Trabalho IA</title>
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style.css') }}">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="{{ url_for('static', filename='script/sonico.js') }}"></script>
+		<script src="{{ url_for('static', filename='script/controler.js') }}"></script>
+		<script src="{{ url_for('static', filename='script/p5.js') }}"></script>
+		<script src="{{ url_for('static', filename='script/paths.js') }}"></script>
+		<script src="{{ url_for('static', filename='script/casosPreDef.js') }}"></script>
+		<script>
+			function response(dict, cb) {
+				$.ajax({
+					url : "{{ url_for('response') }}",
+					type : 'post',
+					data : JSON.stringify(dict),
+				})
+				.done(function(msg){
+					var r = JSON.parse(msg);
+					
+					if (r == null) {
+						r = 'Fail';
+					}
+
+					cb(r);
+				});
+			}
+		</script>
+		<script src="{{ url_for('static', filename='script/sketch.js') }}"></script>
+		<script>
+			$(document).ready(function() {
+				$(".toggle").click(function() {
+					$(".toggle").not(this).css("background-color", "#515151");
+					$(this).css("background-color", "red");
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<ul>
+			<li><button onclick="start()">START</button></li>
+			<li><button onclick="restart()">RESTART</button></li>
+			<li><button onclick="refresh()">REFRESH</button></li>
+
+			<li><button class="toggle markedBtn" onclick="setbrush('NADA')">NADA</button></li>
+			<li><button class="toggle" onclick="setbrush('BOMBEIRO')">BOMBEIRO</button></li>
+			<li><button class="toggle" onclick="setbrush('FOGO')">FOGO</button></li>
+			<li><button class="toggle" onclick="setbrush('EXTINTOR')">EXTINTOR</button></li>
+			<li><button class="toggle" onclick="setbrush('ESCADA')">ESCADA</button></li>
+			<li><button class="toggle" onclick="setbrush('BLOQUEIO')">BLOQUEIO</button></li>
+			<li><button class="toggle" onclick="setbrush('PAREDE')">PAREDE</button></li>
+
+			<li><button onclick="setCaso(1)">CASO 1</button></li>
+			<li><button onclick="setCaso(2)">CASO 2</button></li>
+			<li><button onclick="setCaso(3)">CASO 3</button></li>
+			<li><button onclick="setCaso(4)">CASO 4</button></li>
+			<li><button onclick="setCaso(5)">CASO 5</button></li>
+			<li><button onclick="setCaso(6)">CASO EXTRA</button></li>
+
+			<li><button onclick="changeSizeX(1)">X++</button></li>
+			<li><button onclick="changeSizeX(-1)">X--</button></li>
+			<li><button onclick="changeSizeY(1)">Y++</button></li>
+			<li><button onclick="changeSizeY(-1)">Y--</button></li>
+		</ul>
+	</body>
+</html>
